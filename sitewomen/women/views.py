@@ -9,7 +9,8 @@ class MyClass:
         self.b = b
 def index(request):
     #если в шаблоне хотим отобразить две переменные - то ,<p>{{первая переменная}} {{вторая переменная}}</p>
-    data = {'title': 'Главная страница',
+    data = {'title': 'главная страница?',
+            'main_title': 'ыв',
             'menu': menu,
             'float': 28.56,
             'lst': [1, True],

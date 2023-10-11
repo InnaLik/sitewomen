@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ main_title|default:"Без заголовка" }}</title>
+    <title>{{ title }}</title>
 </head>
 <body>
-<p>{{ menu.0 }}</p>
-<p>{{ float|add:"50"}}</p>
-<p>{{ lst }}</p>
+<p>{{ menu|join:' '}}</p>
+<p>{{ float|divisibleby:"2"}}</p>
+<p>{{ lst|length }}</p>
 <p>{{ set }}</p>
 <p>{{ dict.key_1 }}</p>
 <p>{{ obj.a }}</p>
+<p>{{ "The Main Page"|slugify }}</p>
 <h1>{{ title|cut:" "|cut:"?"}}</h1>
 </body>
 </html>

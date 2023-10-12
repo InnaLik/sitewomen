@@ -3,20 +3,14 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
-class MyClass:
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+data_db = [{'id': 1, 'title': 'Анджелина Джоли', 'content': 'Биография Анджелины Джоли', 'is_publisher': True},
+           {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_publisher': False},
+           {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулия Робертс', 'is_publisher': True}]
 def index(request):
     #если в шаблоне хотим отобразить две переменные - то ,<p>{{первая переменная}} {{вторая переменная}}</p>
-    data = {'title': 'главная страница?',
+    data = {'title': 'главная страница',
             'menu': menu,
-            'float': 28.56,
-            'lst': [1, True],
-            'set': {1, 2, 3},
-            'dict': {'key_1': 'value_1', 'key_2': 'value_2'},
-            'obj': MyClass(10, 20),
-            'url': slugify('The Main Page')}
+            'posts': data_db}
     return render(request, 'women/index.html', context=data)
 
 def about(request):

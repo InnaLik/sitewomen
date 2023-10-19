@@ -59,6 +59,7 @@ def login(request):
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
 
+#очень сложно, надо много раз прослушать тему, чтобы понять
 def show_category(request, cat_id):
     data = {
         'title': 'Отображение по рубрикам',

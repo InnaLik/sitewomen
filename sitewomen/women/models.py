@@ -9,4 +9,3 @@ class Women(models.Model): #именно это наследование пре�
     time_update = models.DateTimeField(auto_now=True) #меняется каждый раз при записи в базу данных (автоматически)
     is_published = models.BooleanField(default=True)
 
-k = 'dfgsd'

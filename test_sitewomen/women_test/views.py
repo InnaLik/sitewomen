@@ -3,9 +3,28 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 
-def main_page(request):
-    return render(request, 'women_test/index.html')
+menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
 
+class MyClass:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+def main_page(request):
+    data = {'title': 'Главная страница',
+                     'menu': menu,
+            'float': 28.56,
+            'lst': [1, 2, 'abs', True],
+            'set': {1, 2, 3, 5},
+            'dict': {'key_1': 'value_1', 'key_2': 'value_2'},
+            'obj': MyClass(10, 20)
+            }
+    return render(request, 'women_test/index.html', context=data)
+
+
+def about(request):
+    data = {'title': 'О сайте',
+            'menu': menu}
+    return render(request, 'women_test/about.html', context=data)
 
 def categories(request, cat_id):
     return HttpResponse(f'<h1>Статьи по категориям</h1><p>: {cat_id}')

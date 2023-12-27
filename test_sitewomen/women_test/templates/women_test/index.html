@@ -8,8 +8,9 @@
 {% for men in menu %}
     <p>{{ men }}</p>
 {% endfor %}
-{{ dict.key_1 }}
-{{ obj.a }}
-<h1>{{ title }}</h1>
+<p>{{ float|divisibleby:"3" }}</p>
+<p>{{ lst|first|last }}</p>
+<p>{{ obj.a|add:"2" }}</p>
+<h1>{{ title|upper|cut:"Г" }}</h1>
 </body>
 </html>

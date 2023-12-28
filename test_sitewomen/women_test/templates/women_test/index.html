@@ -5,12 +5,20 @@
     <title>{{ title }}</title>
 </head>
 <body>
-{% for men in menu %}
-    <p>{{ men }}</p>
-{% endfor %}
-<p>{{ float|divisibleby:"3" }}</p>
-<p>{{ lst|first|last }}</p>
-<p>{{ obj.a|add:"2" }}</p>
-<h1>{{ title|upper|cut:"Г" }}</h1>
+{{ menu|join:" | " }}
+<h1>{{ title }}</h1>
+<ul>
+    {% for data in data_db %}
+    {% if data.is_published %}
+        <li>
+            <h2>{{ data.title }}</h2>
+            <p>{{ data.content }}</p>
+            {% if not forloop.last %}
+            <hr>
+            {% endif %}
+        </li>
+    {% endif %}
+    {% endfor %}
+</ul>
 </body>
 </html>

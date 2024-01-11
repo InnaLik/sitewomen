@@ -4,7 +4,11 @@ from django.urls import reverse
 from django.template.defaultfilters import cut
 
 
-menu = ['О сайте', 'Добавить статью', 'Обратная связь', 'Войти']
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Добавить статью", 'url_name': 'add_page'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'}
+]
 
 data_db = [
     {'id': 1, 'title': 'Анджелина Джоли', 'content': 'Биография Анджелины Джоли', 'is_published': True},
@@ -24,23 +28,21 @@ def about(request):
             'menu': menu}
     return render(request, 'women_test/about.html', context=data)
 
-def categories(request, cat_id):
-    return HttpResponse(f'<h1>Статьи по категориям</h1><p>: {cat_id}')
-
-
-def categories_by_slug(request, cat_slug):
-    if request.POST:
-        print(request.POST)
-    return HttpResponse(f'<h1>Статьи по категориям</h1><p>: {cat_slug}')
-
-
-def archive(request, year):
-    if year > 2023:
-        uri = reverse('cats', args=('music',))
-        return redirect(uri, permanent=True)
-    return HttpResponse(f'Архив по годам {year}')
-
-
 def page_not_found(request, exception):
     return HttpResponseNotFound('Страница не найдена')
 
+
+def show_post(request, post_id):
+    return HttpResponse(f'Отображение статьи с id = {post_id}')
+
+
+def addpage(request):
+    return HttpResponse('Добавление статьи')
+
+
+def contact(request):
+    return HttpResponse('Обратная связь')
+
+
+def login(request):
+    return HttpResponse('Авторизация')

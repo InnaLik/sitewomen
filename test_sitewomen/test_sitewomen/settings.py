@@ -56,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # нестандартные пути к файлам шаблонов [BASE_DIR / 'women' / 'templates']
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         # внутри приложение надо искать шаблоны в подкаталоге templates
         'APP_DIRS': True,
         'OPTIONS': {

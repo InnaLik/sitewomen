@@ -1,7 +1,5 @@
-from django.http import HttpRequest, HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.template.defaultfilters import cut
+from django.http import HttpRequest, HttpResponse, HttpResponseNotFound
+from django.shortcuts import render
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},

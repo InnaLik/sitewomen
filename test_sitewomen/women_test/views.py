@@ -17,10 +17,17 @@ data_db = [
 ]
 
 
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'}
+]
+
 def main_page(request):
     data = {'title': 'Главная страница',
             'menu': menu,
-            'data_db': data_db
+            'data_db': data_db,
+            'cat_selected': 0
             }
     return render(request, 'women_test/index.html', context=data)
 
@@ -49,3 +56,12 @@ def contact(request):
 
 def login(request):
     return HttpResponse('Авторизация')
+
+
+def show_category(request, catid):
+    data = {'title': 'Отображение по рубрикам',
+            'menu': menu,
+            'data_db': data_db,
+            'cat_selected': catid
+            }
+    return render(request, 'women_test/index.html', context=data)

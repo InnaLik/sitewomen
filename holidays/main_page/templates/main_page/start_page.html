@@ -1,0 +1,14 @@
+{% extends 'base.html '%}
+{% block content %}
+{% for holiday in data %}
+<ul>
+    <li>
+        <a href="{% url holiday.url_name %}">{{holiday.name_holiday}}</a>
+        <p>{{holiday.description}}</p>
+    </li>
+</ul>
+{% endfor %}
+{% include 'main_page/includes/title.html '%}
+{% endblock %}
+
+

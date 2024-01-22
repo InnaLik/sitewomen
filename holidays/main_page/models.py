@@ -35,6 +35,10 @@ class OneNotifications(models.Model):
 # обратная связь
 class Feedback(models.Model):
     id_users = models.IntegerField()
-    telegram_id = models.IntegerField(blank=True)
+    telegram_id = models.IntegerField(blank=True, null=True)
     desc = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.desc
+
 

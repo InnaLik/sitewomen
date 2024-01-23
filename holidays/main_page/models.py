@@ -41,4 +41,8 @@ class Feedback(models.Model):
     def __str__(self):
         return self.desc
 
+    class Meta:
+        ordering = ['telegram_id']
+        indexes = [models.Index(fields=['telegram_id'])]
+
 

@@ -1,6 +1,5 @@
 from django.db import models
 
-# Create your models here.
 class Holiday(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -38,11 +37,5 @@ class Feedback(models.Model):
     telegram_id = models.IntegerField(blank=True, null=True)
     desc = models.TextField(max_length=1000)
 
-    def __str__(self):
-        return self.desc
-
-    class Meta:
-        ordering = ['telegram_id']
-        indexes = [models.Index(fields=['telegram_id'])]
 
 

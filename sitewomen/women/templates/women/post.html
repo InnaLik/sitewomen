@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34c923ab9f1d774ab4538e3c993e2eb01c75c4c5
 {% block content %}
 <h1>{{post.title}}</h1>
 
 {% if post.photo %}
+<<<<<<< HEAD
 <p><img class="imh-article-left" src="{{post.photo.url}}"></p>
 {% endif %}
 {{post.content|linebreaks}}
 
+=======
+<p><img class="img-article-left" src="{{post.photo.url}}"></p>
+{% endif %}
+
+{{post.content|linebreaks}}
+>>>>>>> 34c923ab9f1d774ab4538e3c993e2eb01c75c4c5
 {% endblock %}

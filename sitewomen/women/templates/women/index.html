@@ -9,7 +9,11 @@
 	{{p.content|linebreaks|truncatewords:20}}
 	{% endautoescape %}
 			<div class="clear"></div>
+<<<<<<< HEAD
 			<p class="link-read-post"><a href="{{ p.get_absolute_url  }}">Читать пост</a></p>
+=======
+			<p class="link-read-post"><a href="{% p.get_absolute_url %}">Читать пост</a></p>
+>>>>>>> e7d5e34a03359711a5bc2a2775552fa415b272bb
 			</li>
 	{% endif %}
 	{% endfor %}

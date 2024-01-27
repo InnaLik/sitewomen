@@ -6,12 +6,6 @@ from django.urls import reverse
 
 
 class Women(models.Model): #именно это наследование превращает наш в класс в обхект модели
-    title = models.CharField(max_length=255) #текстовые поля
-<<<<<<< HEAD
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-=======
-    slug = models.SlugField(max_length=255, blank=True, db_index=True, default='')
->>>>>>> 34c923ab9f1d774ab4538e3c993e2eb01c75c4c5
     content = models.TextField(blank=True) #blank позволяет нам не задавать значение поля при записи таблицы
     time_create = models.DateTimeField(auto_now_add=True) #auto автоматически будет заполнять поле, но только в момент первого появления данной записи
     time_update = models.DateTimeField(auto_now=True) #меняется каждый раз при записи в базу данных (автоматически)
@@ -28,6 +22,3 @@ class Women(models.Model): #именно это наследование пре�
         indexes = [
             models.Index(fields=['-time_create'])
         ]
-
-    def get_absolute_url(self):
-        return reverse('post', kwargs={'post_slug': self.slug})

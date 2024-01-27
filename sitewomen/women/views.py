@@ -4,10 +4,8 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
-<<<<<<< HEAD
+
 # после перерыва 19.12.2023 37 минут
-=======
->>>>>>> 34c923ab9f1d774ab4538e3c993e2eb01c75c4c5
 from women.models import Women
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -48,26 +46,6 @@ def index(request):
 def about(request):
     return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
 
-
-<<<<<<< HEAD
-def show_post(request, post_slug):
-    post = get_object_or_404(Women, slug=post_slug)
-    data = {
-        'title': post.title,
-        'menu': menu,
-        'post': post,
-        'cat_selected': 1}
-=======
-
-def show_post(request, post_id):
-    # читаем одну запись
-    post = get_object_or_404(Women, pk=post_id)
-    data = {'title': post.title,
-            'menu': menu,
-            'post': post,
-            'cat_selected': 1}
->>>>>>> 34c923ab9f1d774ab4538e3c993e2eb01c75c4c5
-    return render(request, 'women/post.html', data)
 
 
 def addpage(request):

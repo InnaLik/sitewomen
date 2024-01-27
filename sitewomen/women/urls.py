@@ -11,11 +11,7 @@ urlpatterns = [
     path('addpage/', views.addpage, name='add_page'),
     path('contact/', views.contact, name='contact'),
     path('login/', views.login, name='login'),
-<<<<<<< HEAD
     path('post/<slug:post_slug>/', views.show_post, name='post'),
-=======
-    path('post'), views.dfd),
->>>>>>> e7d5e34a03359711a5bc2a2775552fa415b272bb
     path('category/<int:cat_id>/', views.show_category, name='category')
 
 ]

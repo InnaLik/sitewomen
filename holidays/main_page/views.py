@@ -1,5 +1,7 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
+from main_page.models import Holiday
 
 data = [{'id': 1, 'name_holiday': 'Happy New Year', 'url_name': 'new_year', 'description': 'Новый год'},
         {'id': 2, 'name_holiday': 'one september', 'url_name': 'one_september', 'description': '1 сентября'},
@@ -13,6 +15,7 @@ menu = [{'name': 'О сайте', 'url_name': 'about_site'},
 
 # Create your views here.
 def start_page(request):
+    data = Holiday.objects.all()
     return render(request, 'main_page/start_page.html', context={'data': data,
                                                                  'menu': menu})
 
@@ -31,16 +34,10 @@ def page_not_found(request, exception):
     return redirect('start_page_app')
 
 
-def new_year(request):
-    return HttpResponse('Новый год')
-
-
-def one_september(request):
-    return HttpResponse('Первое сентября')
-
-
-def valentines_day(request):
-    return HttpResponse('День всех влюбленных')
+def about_holiday(request, holi_slug):
+    post = get_object_or_404(Holiday, slug=holi_slug)
+    data = {'post': post}
+    return render(request, 'main_page/desc_holiday.html', data)
 
 
 def about_site(request):

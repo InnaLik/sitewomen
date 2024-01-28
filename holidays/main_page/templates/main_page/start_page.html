@@ -3,8 +3,7 @@
 {% for holiday in data %}
 <ul>
     <li>
-        <a href="{% url holiday.url_name %}">{{holiday.name_holiday}}</a>
-        <p>{{holiday.description}}</p>
+        <a href="{{ holiday.get_absolute_url }}">{{holiday.name}}</a>
     </li>
 </ul>
 {% endfor %}

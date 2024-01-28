@@ -1,7 +1,10 @@
 from django.db import models
+from django.urls import reverse
+
 
 class Holiday(models.Model):
     name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     day = models.DateField()
     international = models.BooleanField(default=False)
@@ -10,6 +13,9 @@ class Holiday(models.Model):
     other_country = models.BooleanField(default=False)
     fill_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('holiday', kwargs={'holi_slug': self.slug})
 
 
 class Users(models.Model):

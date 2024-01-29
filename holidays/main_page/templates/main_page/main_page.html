@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Праздники</h1>
-{% for holiday in data %}
-<ul><h2><a href="{{holiday.get_absolute_url}}">{{ holiday.name }}</a></h2></ul>
-{% endfor %}
-<h6>Все права защищены</h6>
-{% endblock %}

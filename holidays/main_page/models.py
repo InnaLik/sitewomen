@@ -14,8 +14,6 @@ class Holiday(models.Model):
     fill_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
-    def get_absolute_url(self):
-        return reverse('holiday', kwargs={'slug_holi': self.slug})
 
 
 class Users(models.Model):

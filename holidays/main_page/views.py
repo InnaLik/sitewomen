@@ -15,9 +15,7 @@ menu = [{'name': 'О сайте', 'url_name': 'about_site'},
 
 # Create your views here.
 def start_page(request):
-    holiday = Holiday.objects.all()
-    d = {'data': holiday}
-    return render(request, 'main_page/main_page.html', d)
+    pass
 
 
 def month_day(request, id_month, id_day):
@@ -35,9 +33,7 @@ def page_not_found(request, exception):
 
 
 def about_holiday(request, slug_holi):
-    holiday = get_object_or_404(Holiday, slug=slug_holi)
-    data = {'holiday': holiday}
-    return render(request, 'main_page/about_holiday.html', data)
+    pass
 
 
 def about_site(request):

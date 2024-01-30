@@ -48,13 +48,14 @@ def about(request):
     return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
 
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Women, slug=post_slug)
+def show_post(request, post_id):
+    post = get_object_or_404(Women, pk=post_id)
     data = {'title': post.title,
             'menu': menu,
             'post': post,
             'cat_selected': 1}
-    return render(request, 'women/post.html', data)
+    return render('women/post.html', data)
+
 
 
 def addpage(request):

@@ -38,16 +38,21 @@ def feedback(request):
 
 def month(request, slug_month):
     post = get_object_or_404(Month, url_name=slug_month)
-    month = Month.objects.get(url_name=slug_month)
-    month = month.count_day
-    d = {'month': range(1, month + 1)}
+    day = Day.objects.all()
+    d = {'day': day,
+         'month': slug_month}
     return render(request, 'main_page/month.html', d)
 
 
 def day(request, slug_month, slug_day):
+    k = {'November': 11}
     post = get_object_or_404(Day, url_name=slug_day)
-    return HttpResponse('8')
+    holidays = Holiday.objects.filter(date_day=slug_day, date_month=k[slug_month])
+    d = {'holidays': holidays}
+    return render(request, 'main_page/holidays.html')
 
 def holiday(request, slug_month, slug_day, slug_holiday):
-    post = get_object_or_404(Holiday, url_name=slug_holiday)
-    return HttpResponse('Мой день рождение')
+    pass
+
+
+

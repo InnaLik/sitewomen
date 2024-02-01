@@ -1,0 +1,3 @@
+{% for i in data %}
+<li><a href="{% url i.url_name %}">{{ i.name }}</a></li>
+{% endfor %}

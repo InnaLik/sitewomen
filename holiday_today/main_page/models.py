@@ -22,9 +22,6 @@ class Day(models.Model):
     url_name = models.SlugField(unique=True)
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
-    def get_absolute_url(self):
-        return reverse('month', kwargs={'slug_month': Month.url_name,
-                                        'slug_day': self.url_name})
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255)
@@ -32,7 +29,8 @@ class Holiday(models.Model):
     international = models.BooleanField(default=False)
     worldwide = models.BooleanField(default=False)
     ordinary_holiday = models.BooleanField(default=False)
-    date_holiday = models.CharField(max_length=255)
+    date_month = models.IntegerField(default=1)
+    date_day = models.IntegerField(default=1)
 
     def get_absolute_url(self):
         return reverse('day', kwargs={'slug_holiday': self.url_name})

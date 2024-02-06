@@ -20,10 +20,19 @@ class Month(models.Model):
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
     url_name = models.SlugField(unique=True)
+    is_published = models.BooleanField(default=True)
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
 
+class Published(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(is_published=1)
+
+
 class Holiday(models.Model):
+    class Status(models.IntegerChoices):
+        DRAFT = 0, 'черновик'
+        PUBLISHED = 1, 'опубликовано'
     name = models.CharField(max_length=255)
     url_name = models.SlugField(unique=True)
     international = models.BooleanField(default=False)
@@ -31,6 +40,20 @@ class Holiday(models.Model):
     ordinary_holiday = models.BooleanField(default=False)
     date_month = models.IntegerField(default=1)
     date_day = models.IntegerField(default=1)
+    is_published = models.BooleanField(choices=Status.choices, default=Status.PUBLISHED)
+    cat_id = models.ForeignKey('Category', on_delete=models.PROTECT)
 
     def get_absolute_url(self):
         return reverse('day', kwargs={'slug_holiday': self.url_name})
+
+    published = Published()
+    objects = models.Manager()
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+
+    def __str__(self):
+        return self.name
+

@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Какой праздник</title>
-</head>
-<body>
-{% include 'main_page/include/menu.html'%}
+{% extends 'main_page/menu.html' %}
+{% block content %}
 <hr>
 {% for i in month %}
 <li><a href="{{ i.get_absolute_url }}">{{ i.name_month }}</a></li>
 {% endfor %}
-{% block content %}
 {% endblock %}
-<h6>Программирую с 2021</h6>
-</body>
-</html>
+

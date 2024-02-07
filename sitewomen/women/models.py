@@ -21,6 +21,7 @@ class Women(models.Model): #именно это наследование пре�
     time_create = models.DateTimeField(auto_now_add=True) #auto автоматически будет заполнять поле, но только в момент первого появления данной записи
     time_update = models.DateTimeField(auto_now=True) #меняется каждый раз при записи в базу данных (автоматически)
     is_published = models.BooleanField(choices=Status.choices, default=Status.PUBLISHED)
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT) # это полноценный объект класса категории, а в бд именно cat_id
 
     published = PublishedManager()
     objects = models.Manager()
@@ -38,3 +39,12 @@ class Women(models.Model): #именно это наследование пре�
 
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+
+
+    def __str__(self):
+        return self.name
+

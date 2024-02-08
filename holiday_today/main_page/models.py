@@ -22,11 +22,9 @@ class Day(models.Model):
     url_name = models.SlugField(unique=True)
     is_published = models.BooleanField(default=True)
 
+
     # 'month/<slug:slug_month>/<slug:slug_day>/'
 
-class Published(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(is_published=1)
 
 
 class Holiday(models.Model):
@@ -38,22 +36,19 @@ class Holiday(models.Model):
     international = models.BooleanField(default=False)
     worldwide = models.BooleanField(default=False)
     ordinary_holiday = models.BooleanField(default=False)
-    date_month = models.IntegerField(default=1)
-    date_day = models.IntegerField(default=1)
-    is_published = models.BooleanField(choices=Status.choices, default=Status.PUBLISHED)
-    cat_id = models.ForeignKey('Category', on_delete=models.PROTECT)
+    month = models.ForeignKey(Month, on_delete=models.PROTECT)
+    day = models.ForeignKey(Day, on_delete=models.PROTECT)
+
 
     def get_absolute_url(self):
         return reverse('day', kwargs={'slug_holiday': self.url_name})
 
-    published = Published()
     objects = models.Manager()
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
-    def __str__(self):
-        return self.name
 
+number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

@@ -46,7 +46,7 @@ def month(request, slug_month):
 
 def day(request, slug_month, slug_day):
     k = {'November': 11}
-    holidays = Holiday.published.filter(date_day=slug_day, date_month=k[slug_month])
+    holidays = Holiday.objects.filter(day_id=slug_day, month_id=k[slug_month])
     d = {'data': data,
         'holidays': holidays,
          'slug_month': k[slug_month],

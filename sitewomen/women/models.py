@@ -11,7 +11,7 @@ class PublishedManager(models.Manager):
 
 
 class Women(models.Model): #именно это наследование превращает наш в класс в обхект модели
-    #класс перечислений, должны быть именно кортежами
+    #класс перечислений, должны быть именно кортежами/ 13 02 2024
     class Status(models.IntegerChoices):
         DRAFT = 0, 'черновик'
         PUBLISHED = 1, 'опубликовано'

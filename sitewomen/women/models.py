@@ -45,6 +45,9 @@ class Category(models.Model):
     slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
 
+    def get_absolute_url(self):
+        return reverse('category', kwargs={'cat_slug': self.slug})
+
     def __str__(self):
         return self.name
 

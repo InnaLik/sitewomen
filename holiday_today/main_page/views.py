@@ -14,9 +14,7 @@ def main(request):
 
 
 def base(request):
-    month = Month.objects.all()
-    d = {'data': data,
-         'month': month}
+    d = {'data': data}
     return render(request, 'base.html', d)
 
 

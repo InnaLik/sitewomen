@@ -15,6 +15,9 @@ class Month(models.Model):
     def get_absolute_url(self):
         return reverse('month', kwargs={'slug_month': self.url_name})
 
+    def __str__(self):
+        return self.name_month
+
 
 
 class Day(models.Model):

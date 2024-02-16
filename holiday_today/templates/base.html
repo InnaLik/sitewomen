@@ -1,8 +1,10 @@
 {% extends 'main_page/menu.html' %}
+{% load holiday_today_tags %}
 {% block content %}
 <hr>
-{% for i in month %}
-<li><a href="{{ i.get_absolute_url }}">{{ i.name_month }}</a></li>
+{% show_month as s %}
+{% for i in s %}
+    <li><a href="{{ i.get_absolute_url }}">{{ i.name_month }}</a></li>
 {% endfor %}
 {% endblock %}
 

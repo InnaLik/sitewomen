@@ -5,6 +5,7 @@ from . import convertes
 
 register_converter(convertes.FourDigitYearConverter, 'year4')
 
+# genm
 urlpatterns = [
     path('', views.index, name='home'),
     path('about/', views.about, name='about'),

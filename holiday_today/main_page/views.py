@@ -18,6 +18,15 @@ def base(request):
     return render(request, 'base.html', d)
 
 
+
+
+def see_month(request, slug_months):
+    month = Month.objects.all().filter(slug=slug_months)
+    d = {'month': month,
+         'count_day': 31}
+    return render(request, 'main_page/month.html', d)
+
+
 def about_site(request):
     return HttpResponse('О сайте')
 
@@ -32,28 +41,4 @@ def contacts(request):
 
 def feedback(request):
     return HttpResponse('Обратная связь')
-
-def month(request, slug_month):
-    post = get_object_or_404(Month, url_name=slug_month)
-    day = Day.objects.all()
-    d = {'data': data,
-        'day': day,
-        'month': slug_month}
-    return render(request, 'main_page/month.html', d)
-
-
-def day(request, slug_month, slug_day):
-    k = {'November': 11}
-    holidays = Holiday.objects.filter(day_id=slug_day, month_id=k[slug_month])
-    d = {'data': data,
-        'holidays': holidays,
-         'slug_month': k[slug_month],
-         'slug_day': slug_day}
-    return render(request, 'main_page/holidays.html', d)
-
-
-def holiday(request, slug_month, slug_day, slug_holiday):
-    pass
-
-
 

@@ -8,7 +8,5 @@ urlpatterns = [
     path('add-holiday/', views.add_holiday, name='add-holiday'),
     path('contacts/', views.contacts, name='contacts'),
     path('feedback/', views.feedback, name='feedback'),
-    path('month/<slug:slug_month>/', views.month, name='month'),
-    path('month/<slug:slug_month>/<slug:slug_day>/', views.day, name='day'),
-    path('month/<slug:slug_month>/<slug:slug_day>/<slug:slug_holiday>/', views.holiday, name='holiday')
+    path('month/<slug:slug_months>/', views.see_month, name='see_month')
 ]

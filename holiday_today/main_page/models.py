@@ -10,10 +10,11 @@ class Month(models.Model):
     number_month = models.IntegerField(unique=True)
     name_month = models.CharField(max_length=255, unique=True)
     count_day = models.IntegerField()
-    url_name = models.SlugField(db_index=True, unique=True)
+    slug = models.SlugField(db_index=True, unique=True)
 
     def get_absolute_url(self):
-        return reverse('month', kwargs={'slug_month': self.url_name})
+        #  первый аргумент это именно название нашей функции во views
+        return reverse('see_month', kwargs={'slug_months': self.slug})
 
     def __str__(self):
         return self.name_month
@@ -51,7 +52,7 @@ class Holiday(models.Model):
 
 
 
-number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
-count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+# number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+# name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+# count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+# url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']

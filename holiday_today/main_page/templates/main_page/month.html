@@ -1,8 +1,7 @@
 {% extends 'main_page/menu.html' %}
 {% block content %}
-{% for i in month %}
-{{i.name_month}}
-
+<h1>{{month.name_month}}</h1>
+{% for i in count_day %}
+<li><a href="{% url 'see_day' slug_months=month.slug slug_day=i %}">{{i}}</a></li>
 {% endfor %}
-{% endfor%}
 {% endblock %}

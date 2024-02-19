@@ -18,14 +18,24 @@ def base(request):
     return render(request, 'base.html', d)
 
 
-
-
 def see_month(request, slug_months):
-    month = Month.objects.all().filter(slug=slug_months)
+    month = get_object_or_404(Month, slug=slug_months)
+    count_day = month.count_day
     d = {'month': month,
-         'count_day': 31}
+         'count_day': [i for i in range(1, count_day + 1)]}
     return render(request, 'main_page/month.html', d)
 
+
+def see_day(request, slug_months, slug_day):
+    month = get_object_or_404(Month, slug=slug_months)
+    holiday = Holiday.objects.all().filter(month_id=month.pk, day_id=slug_day)
+    d = {'holiday': holiday}
+    return render(request, 'main_page/day_holiday.html', d)
+
+
+def see_holiday(request, slug_months, slug_day, slug_holiday):
+    holiday = get_object_or_404(Holiday, slug_months=slug_months, slug_day=slug_day, slug_holiday=slug_holiday)
+    return render(request, 'main_page/Holiday.html')
 
 def about_site(request):
     return HttpResponse('О сайте')

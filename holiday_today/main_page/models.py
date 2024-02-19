@@ -23,20 +23,20 @@ class Month(models.Model):
 
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
-    url_name = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
     is_published = models.BooleanField(default=True)
 
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
+    def get_absolute_url(self):
+        #  первый аргумент это именно название нашей функции во views
+        return reverse('see_day', kwargs={'slug_day': self.slug})
 
 
 
 class Holiday(models.Model):
-    class Status(models.IntegerChoices):
-        DRAFT = 0, 'черновик'
-        PUBLISHED = 1, 'опубликовано'
     name = models.CharField(max_length=255)
-    url_name = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True)
     international = models.BooleanField(default=False)
     worldwide = models.BooleanField(default=False)
     ordinary_holiday = models.BooleanField(default=False)
@@ -45,9 +45,9 @@ class Holiday(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('day', kwargs={'slug_holiday': self.url_name})
+        return reverse('see_holiday', kwargs={'slug_months': self.month.slug,
+                                              'slug_day': self.day.slug, 'slug_holiday': self.slug})
 
-    objects = models.Manager()
 
 
 

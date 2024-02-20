@@ -39,12 +39,12 @@ class Holiday(models.Model):
     month = models.ForeignKey(Month, on_delete=models.PROTECT)
     day = models.ForeignKey(Day, on_delete=models.PROTECT)
 
-    def get_absolute_url(self):
-        return reverse('see_holiday', kwargs={'slug_months': self.month.slug,
-                                              'slug_day': self.day.slug, 'slug_holiday': self.slug})
 
 
-# number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+
+
+    # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 # name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
 # "Ноябрь", "Декабрь"]
 # count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]

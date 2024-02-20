@@ -1,7 +1,9 @@
 {% extends 'main_page/menu.html' %}
 {% block content %}
 <hr>
-{% for h in holiday %}
-<li><a href="{{ h.get_absolute_url }}">{{h.name}}</a></li>
+{% for i in holiday %}
+<li><a href="{% url 'see_holiday' month day i.slug %}">{{i.name}}</a></li>
 {% endfor %}
 {% endblock %}
+
+

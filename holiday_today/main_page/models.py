@@ -20,19 +20,15 @@ class Month(models.Model):
         return self.name_month
 
 
-
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField(default=True)
 
-
     # 'month/<slug:slug_month>/<slug:slug_day>/'
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
         return reverse('see_day', kwargs={'slug_day': self.slug})
-
-
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255)
@@ -43,16 +39,14 @@ class Holiday(models.Model):
     month = models.ForeignKey(Month, on_delete=models.PROTECT)
     day = models.ForeignKey(Day, on_delete=models.PROTECT)
 
-
     def get_absolute_url(self):
         return reverse('see_holiday', kwargs={'slug_months': self.month.slug,
                                               'slug_day': self.day.slug, 'slug_holiday': self.slug})
 
 
-
-
-
 # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-# name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+# name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
+# "Ноябрь", "Декабрь"]
 # count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-# url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+# url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+# 'November', 'December']

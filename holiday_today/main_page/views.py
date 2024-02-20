@@ -35,7 +35,8 @@ def see_day(request, slug_months, slug_day):
 
 def see_holiday(request, slug_months, slug_day, slug_holiday):
     holiday = get_object_or_404(Holiday, slug_months=slug_months, slug_day=slug_day, slug_holiday=slug_holiday)
-    return render(request, 'main_page/Holiday.html')
+    d = {'holiday': holiday}
+    return render(request, 'main_page/Holiday.html', holiday)
 
 def about_site(request):
     return HttpResponse('О сайте')

@@ -17,6 +17,6 @@ def show_month():
 
 # @register.inclusion_tag('main_page/month.html')
 # def show_day(slug_months):
-#     month = Month.objects.all().filter
-#     day = Day.objects.all()
-#     return {'month': month, 'day': day}
+#     month = Month.objects.all().filter(slug=slug_months)
+#     count_day = [i for i in range(1, 32)]
+#     return {'month': month, 'count_day': count_day}

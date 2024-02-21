@@ -22,7 +22,7 @@ def see_month(request, slug_months):
     month = get_object_or_404(Month, slug=slug_months)
     count_day = month.count_day
     d = {'month': month,
-         'count_day': [i for i in range(1, count_day + 1)]}
+          'count_day': [i for i in range(1, count_day + 1)]}
     return render(request, 'main_page/month.html', d)
 
 

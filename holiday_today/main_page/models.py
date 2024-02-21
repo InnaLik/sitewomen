@@ -11,6 +11,8 @@ class Month(models.Model):
     name_month = models.CharField(max_length=255, unique=True)
     count_day = models.IntegerField()
     slug = models.SlugField(db_index=True, unique=True)
+    day = models.ManyToManyField('Day', blank=True)
+
 
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
@@ -38,6 +40,7 @@ class Holiday(models.Model):
     ordinary_holiday = models.BooleanField(default=False)
     month = models.ForeignKey(Month, on_delete=models.PROTECT)
     day = models.ForeignKey(Day, on_delete=models.PROTECT)
+
 
 
 

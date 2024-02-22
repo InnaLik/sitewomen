@@ -11,7 +11,7 @@ class Month(models.Model):
     name_month = models.CharField(max_length=255, unique=True)
     count_day = models.IntegerField()
     slug = models.SlugField(db_index=True, unique=True)
-    day = models.ManyToManyField('Day', blank=True)
+    day = models.ManyToManyField('Day', blank=True, related_name='days')
 
 
     def get_absolute_url(self):
@@ -21,16 +21,19 @@ class Month(models.Model):
     def __str__(self):
         return self.name_month
 
+    def get_name_month(self):
+        return self.name_month
 
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField(default=True)
+    month = models.ManyToManyField('Month', blank=True, related_name='month')
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
-        return reverse('see_day', kwargs={'slug_day': self.slug})
+        return reverse('see_day', kwargs={'int_day': self.slug})
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255)

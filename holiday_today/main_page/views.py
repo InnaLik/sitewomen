@@ -20,18 +20,15 @@ def base(request):
 
 def see_month(request, slug_months):
     month = get_object_or_404(Month, slug=slug_months)
-    count_day = month.count_day
+    day = month.day.all()
     d = {'month': month,
-          'count_day': [i for i in range(1, count_day + 1)]}
+         'day': day}
     return render(request, 'main_page/month.html', d)
 
 
-def see_day(request, slug_months, slug_day):
-    month = get_object_or_404(Month, slug=slug_months)
-    holiday = Holiday.objects.all().filter(month_id=month.pk, day_id=slug_day)
-    d = {'holiday': holiday,
-         'month': slug_months,
-         'day': slug_day}
+def see_day(request, int_day):
+    day = get_object_or_404(Day,  int_day)
+    d = {'day': day}
     return render(request, 'main_page/day_holiday.html', d)
 
 

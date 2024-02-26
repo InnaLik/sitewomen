@@ -24,7 +24,7 @@ class Women(models.Model): #именно это наследование пре�
     # это полноценный объект класса категории, а в бд именно cat_id posts- имя атрибута для обратного связывания
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     # не нужно указывать параметр on delete
-    tags = models.ManyToManyField('TagPost', blank=True, related_name='tags')
+    tagies = models.ManyToManyField('TagPost', blank=True, related_name='tags')
     published = PublishedManager()
     objects = models.Manager()
     #чтобы в оболочке при вызове данных из таблицы красиво показывалось

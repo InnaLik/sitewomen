@@ -26,8 +26,8 @@ def see_month(request, slug_months):
     return render(request, 'main_page/month.html', d)
 
 
-def see_day(request, int_day):
-    day = get_object_or_404(Day,  int_day)
+def see_day(request, slug_month, slug_day):
+    day = get_object_or_404(Day, slug_month, slug_day)
     d = {'day': day}
     return render(request, 'main_page/day_holiday.html', d)
 

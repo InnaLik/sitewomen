@@ -31,9 +31,11 @@ class Day(models.Model):
     month = models.ManyToManyField('Month', blank=True, related_name='month')
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
+
+
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
-        return reverse('see_day', kwargs={'int_day': self.slug})
+        return reverse('see_day', kwargs={'slug_months': , 'slug_day': self.slug})
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255)

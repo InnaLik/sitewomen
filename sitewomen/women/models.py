@@ -25,6 +25,7 @@ class Women(models.Model): #именно это наследование пре�
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
     # не нужно указывать параметр on delete
     tagies = models.ManyToManyField('TagPost', blank=True, related_name='tags')
+    husb = models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True, related_name='women')
     published = PublishedManager()
     objects = models.Manager()
     #чтобы в оболочке при вызове данных из таблицы красиво показывалось
@@ -62,3 +63,11 @@ class TagPost(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag', kwargs={'tag_slug': self.slug})
+
+
+class Husband(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField(null=True)
+
+    def __str__(self):
+        return self.name

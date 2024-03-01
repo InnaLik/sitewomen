@@ -1,5 +1,4 @@
-from django.contrib import admin
-from django.urls import path, include, re_path, register_converter
+from django.urls import path, register_converter
 from . import views
 from . import convertes
 
@@ -17,4 +16,3 @@ urlpatterns = [
     path('tag/<slug:tag_slug>/', views.show_tag_postlist, name='tag')
 
 ]
-

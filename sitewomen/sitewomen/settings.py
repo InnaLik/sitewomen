@@ -57,8 +57,10 @@ ROOT_URLCONF = 'sitewomen.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], #нестадартные пути к файлам шаблонов например BASE_DIR / 'women' / 'templates'
-        'APP_DIRS': True, #внутри приложений необходимо искать директорию templates и оттуда брать шаблоны
+        # нестадартные пути к файлам шаблонов например BASE_DIR / 'women' / 'templates'
+        'DIRS': [BASE_DIR / 'templates'],
+        # внутри приложений необходимо искать директорию templates и оттуда брать шаблоны
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -121,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-#STATICFILES_DIRS = [BASE_DIR / 'sitewomen/static']
+# STATICFILES_DIRS = [BASE_DIR / 'sitewomen/static']
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

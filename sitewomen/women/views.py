@@ -1,11 +1,7 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.template.loader import render_to_string
-from django.template.defaultfilters import slugify
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render, get_object_or_404
 
 
-# после перерыва 19.12.2023 37 минут
 from women.models import Women, Category, TagPost
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -24,6 +20,7 @@ data_db = [
     {'id': 2, 'title': 'Марго Робби', 'content': 'Биография Марго Робби', 'is_published': False},
     {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулия Робертс', 'is_published': True},
 ]
+
 
 def index(request):
     posts = Women.published.all()
@@ -48,7 +45,6 @@ def show_post(request, post_slug):
             'post': post,
             'cat_selected': 1}
     return render(request, 'women/post.html', data)
-
 
 
 def addpage(request):
@@ -89,4 +85,4 @@ def show_tag_postlist(request, tag_slug):
         'posts': posts,
         'cat_selected': None
     }
-    return  render(request, 'women/index.html', context=data)
+    return render(request, 'women/index.html', context=data)

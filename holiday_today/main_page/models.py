@@ -13,7 +13,6 @@ class Month(models.Model):
     slug = models.SlugField(db_index=True, unique=True)
     day = models.ManyToManyField('Day', blank=True, related_name='days')
 
-
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
         return reverse('see_month', kwargs={'slug_months': self.slug})
@@ -24,6 +23,7 @@ class Month(models.Model):
     def get_name_month(self):
         return self.name_month
 
+
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
     slug = models.SlugField(unique=True)
@@ -32,10 +32,10 @@ class Day(models.Model):
 
     # 'month/<slug:slug_month>/<slug:slug_day>/'
 
-
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
-        return reverse('see_day', kwargs={'slug_months': , 'slug_day': self.slug})
+        pass
+
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255)
@@ -45,13 +45,6 @@ class Holiday(models.Model):
     ordinary_holiday = models.BooleanField(default=False)
     month = models.ForeignKey(Month, on_delete=models.PROTECT)
     day = models.ForeignKey(Day, on_delete=models.PROTECT)
-
-
-
-
-
-
-
     # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 # name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
 # "Ноябрь", "Декабрь"]

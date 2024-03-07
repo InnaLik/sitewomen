@@ -31,7 +31,7 @@ class Women(models.Model):
     published = PublishedManager()
     objects = models.Manager()
 
-    # чтобы в оболочке при вызове данных из таблицы красиво показывалось
+    # чтобы в оболочке при вызове данных из таблицы показывался текст
     def __str__(self):
         return self.title
 
@@ -58,6 +58,7 @@ class Category(models.Model):
         return self.name
 
 
+# класс тегов, например, высокие, блондинки, брюнетки и т.д
 class TagPost(models.Model):
     tag = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=255, unique=True, db_index=True)

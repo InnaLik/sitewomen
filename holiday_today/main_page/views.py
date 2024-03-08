@@ -9,6 +9,8 @@ data = [{'name': 'О сайте', 'url_name': 'about-site'},
         {'name': 'Добавить праздник', 'url_name': 'add-holiday'},
         {'name': 'Контакты', 'url_name': 'contacts'},
         {'name': 'Обратная связь', 'url_name': 'feedback'}]
+
+
 def main(request):
     return render(request, 'main_page.index.html')
 
@@ -42,6 +44,7 @@ def see_holiday(request, slug_months, slug_day, slug_holiday):
          'holiday_slug': slug_holiday}
     return render(request, 'main_page/Holiday.html', d)
 
+
 def about_site(request):
     return HttpResponse('О сайте')
 
@@ -56,4 +59,3 @@ def contacts(request):
 
 def feedback(request):
     return HttpResponse('Обратная связь')
-

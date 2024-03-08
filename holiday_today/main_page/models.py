@@ -33,8 +33,7 @@ class Day(models.Model):
     # 'month/<slug:slug_month>/<slug:slug_day>/'
 
     def get_absolute_url(self):
-        #  первый аргумент это именно название нашей функции во views
-        pass
+        return reverse('see_day', kwargs={'slug_months': self.slug.})
 
 
 class Holiday(models.Model):
@@ -43,8 +42,6 @@ class Holiday(models.Model):
     international = models.BooleanField(default=False)
     worldwide = models.BooleanField(default=False)
     ordinary_holiday = models.BooleanField(default=False)
-    month = models.ForeignKey(Month, on_delete=models.PROTECT)
-    day = models.ForeignKey(Day, on_delete=models.PROTECT)
     # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 # name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
 # "Ноябрь", "Декабрь"]

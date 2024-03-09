@@ -27,6 +27,7 @@ SECRET_KEY = secret_key.key
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
@@ -38,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    # и для django-toolbar данная строчка нужна
     'django.contrib.staticfiles',
     'django_extensions',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +53,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'sitewomen.urls'
 
@@ -119,7 +125,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# и для django-toolbar данная строчка нужна
 STATIC_URL = 'static/'
 
 

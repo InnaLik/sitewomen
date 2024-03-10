@@ -30,10 +30,6 @@ class Day(models.Model):
     is_published = models.BooleanField(default=True)
     month = models.ManyToManyField('Month', blank=True, related_name='month')
 
-    # 'month/<slug:slug_month>/<slug:slug_day>/'
-
-    def get_absolute_url(self):
-        return reverse('see_day', kwargs={'slug_months': self.slug.})
 
 
 class Holiday(models.Model):
@@ -42,6 +38,8 @@ class Holiday(models.Model):
     international = models.BooleanField(default=False)
     worldwide = models.BooleanField(default=False)
     ordinary_holiday = models.BooleanField(default=False)
+    month = models.ManyToManyField('Month', blank=True)
+    day = models.ManyToManyField('Day', blank=True)
     # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 # name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
 # "Ноябрь", "Декабрь"]

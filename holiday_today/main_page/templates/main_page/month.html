@@ -2,7 +2,6 @@
 {% block content %}
 <h1>{{month.name_month}}</h1>
 {%for i in day%}
-<li><a href="{{ i.get_absolute_url }}">
-        {{ i.number_day }}</a></li>
+<li><a href="{% url 'see_day' month.slug i.slug %}">{{ i.number_day }}</a></li>
 {%endfor%}
 {% endblock %}

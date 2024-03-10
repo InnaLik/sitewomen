@@ -28,16 +28,18 @@ def see_month(request, slug_months):
     return render(request, 'main_page/month.html', d)
 
 
-def see_day(request, slug_month, slug_day):
-    day = get_object_or_404(Day, slug_month, slug_day)
-    d = {'day': day}
+def see_day(request, slug_months, slug_day):
+    month = Month.objects.values('id').get(slug=slug_months)
+    holidays = Holiday.objects.filter(month=month['id'], day=slug_day)
+    d = {'holidays': holidays,
+         'month': slug_months,
+         'day': slug_day}
     return render(request, 'main_page/day_holiday.html', d)
 
 
 def see_holiday(request, slug_months, slug_day, slug_holiday):
-    #  вернулась к тому с чего начала, еее
     month = get_object_or_404(Month, slug=slug_months)
-    holiday = Holiday.objects.get(slug=slug_holiday, day_id=slug_day, month_id=month.pk)
+    holiday = Holiday.objects.get(slug=slug_holiday, day=slug_day, month=month.id)
     d = {'holiday': holiday,
          'month': slug_months,
          'day': slug_day,

@@ -13,21 +13,23 @@ class Women(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'черновик'
         PUBLISHED = 1, 'опубликовано'
-    slug = models.SlugField(max_length=255, db_index=True, unique=True)
-    # текстовые поля
-    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, db_index=True, unique=True, verbose_name='Slug')
+    # текстовые поля verbose_name для отображения в админ панели
+    title = models.CharField(max_length=255, verbose_name='Заголовок')
     # blank позволяет нам не задавать значение поля при записи таблицы
-    content = models.TextField(blank=True)
+    content = models.TextField(blank=True, verbose_name='Текст статьи')
     # auto автоматически будет заполнять поле, но только в момент первого появления данной записи
-    time_create = models.DateTimeField(auto_now_add=True)
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     # меняется каждый раз при записи в базу данных (автоматически)
-    time_update = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(choices=Status.choices, default=Status.PUBLISHED)
+    time_update = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    is_published = models.BooleanField(choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
+                                       default=Status.PUBLISHED, verbose_name='Статус')
     # это полноценный объект класса категории, а в бд именно cat_id posts- имя атрибута для обратного связывания
-    cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts')
+    cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts', verbose_name='Категории')
     # не нужно указывать параметр on delete
-    tagies = models.ManyToManyField('TagPost', blank=True, related_name='tags')
-    husb = models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True, related_name='women')
+    tagies = models.ManyToManyField('TagPost', blank=True, related_name='tags', verbose_name='Теги')
+    husb = models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True,
+                                related_name='women', verbose_name='Муж')
     published = PublishedManager()
     objects = models.Manager()
 
@@ -52,14 +54,18 @@ class Women(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, db_index=True)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+    name = models.CharField(max_length=100, db_index=True, verbose_name='Категория')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='Slug')
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 
 # класс тегов, например, высокие, блондинки, брюнетки и т.д

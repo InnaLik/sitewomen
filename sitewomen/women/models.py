@@ -30,8 +30,9 @@ class Women(models.Model):
     tagies = models.ManyToManyField('TagPost', blank=True, related_name='tags', verbose_name='Теги')
     husb = models.OneToOneField('Husband', on_delete=models.SET_NULL, null=True, blank=True,
                                 related_name='women', verbose_name='Муж')
-    published = PublishedManager()
     objects = models.Manager()
+    published = PublishedManager()
+
 
     # чтобы в оболочке при вызове данных из таблицы показывался текст
     def __str__(self):

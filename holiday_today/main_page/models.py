@@ -23,6 +23,9 @@ class Month(models.Model):
     def get_name_month(self):
         return self.name_month
 
+    class Meta:
+        verbose_name_plural = 'Месяцы'
+
 
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
@@ -30,19 +33,31 @@ class Day(models.Model):
     is_published = models.BooleanField(default=True)
     month = models.ManyToManyField('Month', blank=True, related_name='month')
 
+    class Meta:
+        verbose_name_plural = 'Дни'
 
 
 class Holiday(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
-    international = models.BooleanField(default=False)
-    worldwide = models.BooleanField(default=False)
-    ordinary_holiday = models.BooleanField(default=False)
+    name = models.CharField(max_length=255, verbose_name='Наименование')
+    slug = models.SlugField(unique=True, verbose_name='Слаг')
+    international = models.BooleanField(default=False, verbose_name='Статус международного')
+    worldwide = models.BooleanField(default=False, verbose_name='Статус всемирного')
+    ordinary_holiday = models.BooleanField(default=False, verbose_name='Статус обычного')
     month = models.ManyToManyField('Month', blank=True)
     day = models.ManyToManyField('Day', blank=True)
-    # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-# name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
-# "Ноябрь", "Декабрь"]
-# count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-# url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-# 'November', 'December']
+    country = models.ManyToManyField('Country', blank=True)
+
+
+
+    class Meta:
+        verbose_name_plural = 'Праздники'
+
+
+
+class Country(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Наименование')
+    slug = models.CharField(max_length=100)
+
+
+    def __str__(self):
+        return self.title

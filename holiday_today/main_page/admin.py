@@ -8,14 +8,32 @@ admin.site.register(Day)
 admin.site.site_header = 'Календарь праздников'
 admin.site.index_title = 'Праздники'
 
+class MonthFilter(admin.SimpleListFilter):
+    title = 'Месяц'
+    parameter_name = 'month'
+
+    def lookups(self, request, model_admin):
+        return [('Сентябрь', 9),
+                ('Октябрь', 10),
+                ('Ноябрь', 11)]
+
+    def queryset(self, request, queryset):
+        d = {'Сентябрь': 9,
+             'Октябрь': 10,
+             'Ноябрь': 11}
+        s = d.get(self.value())
+        return queryset.filter(month__number_month=s)
+
 @admin.register(Holiday)
 class HolidayAdmin(admin.ModelAdmin):
     list_display = ['name', 'international', 'worldwide', 'ordinary_holiday', 'slug', 'get_country']
     list_display_link = ['name', 'slug']
     list_editable = ['international', 'worldwide', 'ordinary_holiday']
     actions = ['set_international']
-    # указать список полей для фильтра
-    # панель фильтрации сделать
+    # список полей для поиска
+    search_fields = ['name']
+    list_filter = [MonthFilter, 'international', 'worldwide', 'ordinary_holiday']
+
 
     @admin.action(description='Сделать международными')
     def set_international(self, request, queryset):

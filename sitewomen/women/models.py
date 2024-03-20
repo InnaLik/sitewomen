@@ -1,5 +1,7 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.urls import reverse
+
 
 
 class PublishedManager(models.Manager):
@@ -23,7 +25,7 @@ class Women(models.Model):
     # меняется каждый раз при записи в базу данных (автоматически)
     time_update = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     is_published = models.BooleanField(choices=tuple(map(lambda x: (bool(x[0]), x[1]), Status.choices)),
-                                       default=Status.PUBLISHED, verbose_name='Статус')
+                                       default=Status.DRAFT, verbose_name='Статус')
     # это полноценный объект класса категории, а в бд именно cat_id posts- имя атрибута для обратного связывания
     cat = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='posts', verbose_name='Категории')
     # не нужно указывать параметр on delete
@@ -50,8 +52,15 @@ class Women(models.Model):
             models.Index(fields=['-time_create'])
         ]
 
+    # подходит только для латинских букв
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
+
+
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
+
 
 
 class Category(models.Model):

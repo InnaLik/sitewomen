@@ -25,6 +25,18 @@ class MariedFilter(admin.SimpleListFilter):
 
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
+    # поля, которые будут отображаться в форме редактирования
+    fields = ['title', 'slug', 'content', 'cat', 'husb', 'tagies']
+    # либо можем прописать exclude вместо fields, он исключит поля
+    # exclude = ['tagies', 'is_published']
+    # поля только для чтения
+    #readonly_fields = ['slug']
+    # для автоматического формирования слага
+    prepopulated_fields = {'slug': ('title', )}
+    # для горизонтального отображения
+    # filter_horizontal = ['tagies']
+    # для вертикального отображения
+    filter_vertical = ['tagies']
     list_display = ('title', 'time_create', 'is_published', 'cat', 'brief_info')
     # кликабельность
     list_display_links = ('title',)
@@ -35,6 +47,7 @@ class WomenAdmin(admin.ModelAdmin):
     list_editable = ['is_published']
     # пагинация списка - максимальное количество статей для отображения на странице
     list_per_page = 20
+    # действия
     actions = ['set_published', 'set_draft']
     # указываем список полей, по которым будет осуществляться поиск
     search_fields = ['title__startswith', 'cat__name']

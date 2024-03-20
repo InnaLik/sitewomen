@@ -15,12 +15,18 @@ class MonthFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         return [('Сентябрь', 9),
                 ('Октябрь', 10),
-                ('Ноябрь', 11)]
+                ('Ноябрь', 11),
+                ('Декабрь', 12),
+                ('Январь', 1),
+                ('Февраль', 2)]
 
     def queryset(self, request, queryset):
         d = {'Сентябрь': 9,
              'Октябрь': 10,
-             'Ноябрь': 11}
+             'Ноябрь': 11,
+             'Декабрь': 12,
+             'Январь': 1,
+             'Февраль': 2}
         s = d.get(self.value())
         return queryset.filter(month__number_month=s)
 

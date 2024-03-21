@@ -39,6 +39,9 @@ class HolidayAdmin(admin.ModelAdmin):
     # список полей для поиска
     search_fields = ['name']
     list_filter = [MonthFilter, 'international', 'worldwide', 'ordinary_holiday']
+    fields = ['name', 'slug', 'international', 'worldwide', 'ordinary_holiday', 'country']
+    filter_horizontal = ['country']
+    prepopulated_fields = {'slug': ('name',)}
 
 
     @admin.action(description='Сделать международными')

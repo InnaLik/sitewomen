@@ -18,7 +18,8 @@ class MonthFilter(admin.SimpleListFilter):
                 ('Ноябрь', 11),
                 ('Декабрь', 12),
                 ('Январь', 1),
-                ('Февраль', 2)]
+                ('Февраль', 2),
+                ('Март', 3)]
 
     def queryset(self, request, queryset):
         d = {'Сентябрь': 9,
@@ -26,7 +27,8 @@ class MonthFilter(admin.SimpleListFilter):
              'Ноябрь': 11,
              'Декабрь': 12,
              'Январь': 1,
-             'Февраль': 2}
+             'Февраль': 2,
+             'Март': 3}
         s = d.get(self.value())
         return queryset.filter(month__number_month=s)
 

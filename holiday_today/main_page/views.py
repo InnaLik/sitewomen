@@ -52,7 +52,8 @@ def about_site(request):
 
 
 def add_holiday(request):
-    return HttpResponse('Добавить праздник')
+    print(request.POST)
+    return render(request, 'main_page/add_holiday.html')
 
 
 def contacts(request):

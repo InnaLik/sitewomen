@@ -36,6 +36,9 @@ class Day(models.Model):
     class Meta:
         verbose_name_plural = 'Дни'
 
+    def __str__(self):
+        return str(self.number_day)
+
 
 class Holiday(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
@@ -46,6 +49,7 @@ class Holiday(models.Model):
     month = models.ManyToManyField('Month', blank=True)
     day = models.ManyToManyField('Day', blank=True)
     country = models.ManyToManyField('Country', blank=True)
+    description_holi = models.TextField(blank=True)
 
 
 

@@ -2,13 +2,7 @@
 {% block content %}
 <form action="" method="POST">
   {% csrf_token %}
-  <p><label for="id_1">Название праздника: </label><input type="text" id="id_1" name="filed_text"></p>
-  <p><label for="id_5">Описание праздника</label><input type="text" id="id_5" name="description"></p>
-  <p><label for="id_2">Номер месяца</label><input type="number" id="id_2" name="number_month"></p>
-  <p><label for="id_3">Номер дня</label><input type="number" id="id_3" name="number_day"></p>
-  <label for="id_6">Международный</label><input type="checkbox" id="id_6" name="inter">
-  <label for="id_7">Всемирный</label><input type="checkbox" id="id_7" name="vse">
-  <label for="id_8">Обычный</label><input type="checkbox" id="id_8" name="country">
+  {{ form.as_p }}
   <p><input type="submit" name="send"></p>
 </form>
 

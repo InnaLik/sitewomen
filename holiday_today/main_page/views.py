@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 
 # Create your views here.
+from .forms import AddFormsHoliday
 from .models import Month, Day, Holiday
 
 data = [{'name': 'О сайте', 'url_name': 'about-site'},
@@ -52,8 +53,14 @@ def about_site(request):
 
 
 def add_holiday(request):
-    print(request.POST)
-    return render(request, 'main_page/add_holiday.html')
+    if request.method == 'POST':
+        form = AddFormsHoliday(request.POST)
+        if form.is_valid():
+            form.cleaned_data()
+    else:
+        form = AddFormsHoliday()
+    d = {'form': form}
+    return render(request, 'main_page/add_holiday.html', d)
 
 
 def contacts(request):

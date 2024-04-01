@@ -1,7 +1,5 @@
 from django.db import models
-from django.template.defaultfilters import slugify
 from django.urls import reverse
-
 
 
 class PublishedManager(models.Manager):
@@ -35,7 +33,6 @@ class Women(models.Model):
     objects = models.Manager()
     published = PublishedManager()
 
-
     # чтобы в оболочке при вызове данных из таблицы показывался текст
     def __str__(self):
         return self.title
@@ -57,10 +54,8 @@ class Women(models.Model):
     #     self.slug = slugify(self.title)
     #     super().save(*args, **kwargs)
 
-
     def get_absolute_url(self):
         return reverse('post', kwargs={'post_slug': self.slug})
-
 
 
 class Category(models.Model):

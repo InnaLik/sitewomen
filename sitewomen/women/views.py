@@ -10,7 +10,6 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Войти", 'url_name': 'login'}]
 
 
-
 def index(request):
     # для жадной загрузки, чтобы более в проекте это sql запрос не выполнялся
     posts = Women.published.all().select_related('cat')
@@ -54,7 +53,6 @@ def addpage(request):
             'title': 'Добавление статьи',
             'form': form}
     return render(request, 'women/addpage.html', data)
-
 
 
 def contact(request):

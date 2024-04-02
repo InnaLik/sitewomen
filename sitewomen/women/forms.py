@@ -5,25 +5,11 @@ from django.utils.deconstruct import deconstructible
 
 from .models import Category, Husband
 
-@deconstructible
-class RussianValidator:
-    ALLOWED_CHARS = 'йцукенгшщзхъфывапролджэячсмитьбю0123456789'
-    code = 'russian'
-
-    def __init__(self, message=None):
-        self.message = message if message else 'Должны присутствовать только русские символы, дефис и пробел'
-
-
-    def __call__(self, value, *args, **kwargs):
-        if not (set(value) <= set(self.ALLOWED_CHARS)):
-            raise ValidationError(self.message, code=self.code)
-
 class AddPostForm(forms.Form):
     # атрибуты полей формы textinput - это стиль оформления
     title = forms.CharField(max_length=255, min_length=5,
                             label='Заголовок',
                             widget=forms.TextInput(attrs={'class': 'form-input'}),
-                            validators=[RussianValidator()],
                             error_messages={'min_length': 'Слишком короткий заголовок',
                                             'required': 'Без заголовка никак'})
     slug = forms.SlugField(max_length=255, label='URL',
@@ -38,5 +24,10 @@ class AddPostForm(forms.Form):
     cat = forms.ModelChoiceField(queryset=Category.objects.all(), label="Категории", empty_label="Категория не выбрана")
     husb = forms.ModelChoiceField(queryset=Husband.objects.all(), required=False, label="Муж", empty_label="Не замужем")
 
-
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        ALLOWED_CHARS = 'йцукенгшщзхъфывапролджэячсмитьбю0123456789'
+        if not (set(title) <= set(ALLOWED_CHARS)):
+            raise ValidationError(message='Должны присутствовать только русские символы, дефис и пробел')
+        return title
 

@@ -1,6 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from .forms import AddFormsHoliday
@@ -56,7 +55,16 @@ def add_holiday(request):
     if request.method == 'POST':
         form = AddFormsHoliday(request.POST)
         if form.is_valid():
-            form.cleaned_data()
+            print(form.cleaned_data)
+            name, slug, international, worldwide, otdinary_holiday, month, day, country, description_holi = form.cleaned_data.values()
+            Holiday.objects.create(name=name, slug=slug, international=international, worldwide=worldwide,
+                                   ordinary_holiday=otdinary_holiday, description_holi=description_holi)
+            s = Holiday.objects.get(name=name)
+
+            s.month.add(month)
+            s.day.add(day)
+            return redirect('base')
+
     else:
         form = AddFormsHoliday()
     d = {'form': form}

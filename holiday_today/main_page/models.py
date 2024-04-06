@@ -46,10 +46,11 @@ class Holiday(models.Model):
     international = models.BooleanField(default=False, verbose_name='Статус международного')
     worldwide = models.BooleanField(default=False, verbose_name='Статус всемирного')
     ordinary_holiday = models.BooleanField(default=False, verbose_name='Статус обычного')
+    description_holi = models.TextField(blank=True)
     month = models.ManyToManyField('Month', blank=True, related_name='months')
     day = models.ManyToManyField('Day', blank=True)
     country = models.ManyToManyField('Country', blank=True)
-    description_holi = models.TextField(blank=True)
+
 
 
 

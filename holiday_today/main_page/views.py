@@ -56,13 +56,15 @@ def add_holiday(request):
         form = AddFormsHoliday(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
-            name, slug, international, worldwide, otdinary_holiday, month, day, country, description_holi = form.cleaned_data.values()
-            Holiday.objects.create(name=name, slug=slug, international=international, worldwide=worldwide,
-                                   ordinary_holiday=otdinary_holiday, description_holi=description_holi)
+            month = form.cleaned_data['month']
+            day = form.cleaned_data['day']
+            country = form.cleaned_data['country']
+            form.save()
+            name = form.cleaned_data['name']
             s = Holiday.objects.get(name=name)
-
             s.month.add(month)
             s.day.add(day)
+            s.country.add(country)
             return redirect('base')
 
     else:

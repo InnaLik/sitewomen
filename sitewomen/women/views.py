@@ -23,7 +23,15 @@ def index(request):
     return render(request, 'women/index.html', context=data)
 
 
+def handle_uploaded_file(f):
+    with open(f"uploads/{f.name}", "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
 def about(request):
+    if request.method == 'POST':
+        handle_uploaded_file(request.FILES['file_upload'])
     return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
 
 
@@ -41,12 +49,14 @@ def addpage(request):
         form = AddPostForm(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            try:
-                # поля формы должны быть идентичны полям модели для успешного добавления
-                Women.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                form.add_error(None, 'Ошибка добавления статьи')
+            # try:
+            #     # поля формы должны быть идентичны полям модели для успешного добавления
+            #     Women.objects.create(**form.cleaned_data)
+            #     return redirect('home')
+            # except:
+            #     form.add_error(None, 'Ошибка добавления статьи')
+            form.save()
+            return redirect('home')
     else:
         form = AddPostForm()
     data = {'menu': menu,

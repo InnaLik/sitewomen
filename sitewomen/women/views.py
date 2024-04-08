@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import AddPostForm
+from .forms import AddPostForm, UploadFileForm
 from women.models import Women, Category, TagPost
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -30,9 +30,15 @@ def handle_uploaded_file(f):
 
 
 def about(request):
-    if request.method == 'POST':
-        handle_uploaded_file(request.FILES['file_upload'])
-    return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
+    if request.method == 'GET':
+        form = UploadFileForm()
+    else:
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            # строчка обязательна для загрузки формы
+            handle_uploaded_file(form.cleaned_data['file'])
+    return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu, 'form': form})
+
 
 
 def show_post(request, post_slug):

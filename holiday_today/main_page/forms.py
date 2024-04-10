@@ -16,6 +16,7 @@ class DescriptionValidator:
             raise ValidationError(message='Недопустим флуд')
         return value
 
+
 class AddFormsHoliday(forms.ModelForm):
     month = forms.ModelChoiceField(queryset=Month.objects.all(), empty_label='Не выбрано', label='Месяц')
     day = forms.ModelChoiceField(queryset=Day.objects.all(), empty_label='Не выбрано', label='День')
@@ -28,11 +29,8 @@ class AddFormsHoliday(forms.ModelForm):
 
         labels = {'description_holi': 'Описание праздника'}
 
-
-
     def clean_name(self):
         value = self.cleaned_data['name']
         if '_' in value:
             raise ValidationError(message='Символ подчеркивания недопустим')
         return value
-

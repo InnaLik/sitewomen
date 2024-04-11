@@ -46,13 +46,16 @@ def see_holiday(request, slug_months, slug_day, slug_holiday):
          'holiday_slug': slug_holiday}
     return render(request, 'main_page/Holiday.html', d)
 
+
 def handle_uploaded_file(f):
-    with open(f"uploads/{f.name}", "wb+") as destination:
+    with open(f"uploads/{f}", "wb+") as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+
+
 def about_site(request):
     if request.method == 'POST':
-        handle_uploaded_file(request.FILES['file_upload'])
+        handle_uploaded_file(request.FILES['upload_file'])
     return render(request, 'main_page/about.html')
 
 

@@ -3,8 +3,8 @@
 <h1>{{title}}</h1>
 <form method="post" enctype="multipart/form-data" action="" >
     {% csrf_token %}
-    <p><input type="file" name="upload_file"></p>
-    <p><button type="submit">Отправить</button></p>
+    {{form.as_p}}
+    <button type="submit">Отправить</button>
 
 </form>
 {% endblock %}

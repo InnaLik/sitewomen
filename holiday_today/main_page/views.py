@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
-from .forms import AddFormsHoliday
+from .forms import AddFormsHoliday, UploadForm
 from .models import Month, Day, Holiday
 
 data = [{'name': 'О сайте', 'url_name': 'about-site'},
@@ -55,8 +55,12 @@ def handle_uploaded_file(f):
 
 def about_site(request):
     if request.method == 'POST':
-        handle_uploaded_file(request.FILES['upload_file'])
-    return render(request, 'main_page/about.html')
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(form.cleaned_data['file'])
+    else:
+        form = UploadForm()
+    return render(request, 'main_page/about.html', {'form': form})
 
 
 def add_holiday(request):

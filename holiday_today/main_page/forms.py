@@ -34,3 +34,7 @@ class AddFormsHoliday(forms.ModelForm):
         if '_' in value:
             raise ValidationError(message='Символ подчеркивания недопустим')
         return value
+
+
+class UploadForm(forms.Form):
+    file = forms.FileField(label='Файл')

@@ -36,5 +36,5 @@ class AddFormsHoliday(forms.ModelForm):
         return value
 
 
-class UploadForm(forms.Form):
-    file = forms.FileField(label='Файл')
+class AddFileUpload(forms.Form):
+    file = forms.FileField(label='Файл:')

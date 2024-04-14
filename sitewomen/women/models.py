@@ -19,6 +19,7 @@ class Women(models.Model):
         MinLengthValidator(5, message='Слишком мало символов, минимальный порог 5'),
         MaxLengthValidator(100)
     ])
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d', default=None, blank=True, null=True, verbose_name='Фото')
     # текстовые поля verbose_name для отображения в админ панели
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     # blank позволяет нам не задавать значение поля при записи таблицы

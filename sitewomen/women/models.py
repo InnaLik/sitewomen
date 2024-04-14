@@ -14,10 +14,11 @@ class Women(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'черновик'
         PUBLISHED = 1, 'опубликовано'
+
     slug = models.SlugField(max_length=255, db_index=True, unique=True, verbose_name='Slug', validators=[
-                               MinLengthValidator(5, message='Слишком мало символов, минимальный порог 5'),
-                               MaxLengthValidator(100)
-                           ])
+        MinLengthValidator(5, message='Слишком мало символов, минимальный порог 5'),
+        MaxLengthValidator(100)
+    ])
     # текстовые поля verbose_name для отображения в админ панели
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     # blank позволяет нам не задавать значение поля при записи таблицы
@@ -96,3 +97,7 @@ class Husband(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UploadFiles(models.Model):
+    file = models.FileField(upload_to='uploads_model')

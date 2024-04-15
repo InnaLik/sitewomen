@@ -1,5 +1,3 @@
-
-
 from django.db import models
 
 # Create your models here.
@@ -51,19 +49,17 @@ class Holiday(models.Model):
     day = models.ManyToManyField('Day', blank=True)
     country = models.ManyToManyField('Country', blank=True)
 
-
-
-
-
     class Meta:
         verbose_name_plural = 'Праздники'
-
 
 
 class Country(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.CharField(max_length=100)
 
-
     def __str__(self):
         return self.title
+
+
+class FileUploadHoliday(models.Model):
+    file = models.FileField(upload_to='image', blank=True, null=True, verbose_name='Файл')

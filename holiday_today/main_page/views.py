@@ -1,9 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-
-# Create your views here.
 from .forms import AddFormsHoliday, AddFileUpload
-from .models import Month, Day, Holiday
+from .models import Month, Day, Holiday, FileUploadHoliday
 
 data = [{'name': 'О сайте', 'url_name': 'about-site'},
         {'name': 'Добавить праздник', 'url_name': 'add-holiday'},
@@ -47,17 +45,19 @@ def see_holiday(request, slug_months, slug_day, slug_holiday):
     return render(request, 'main_page/Holiday.html', d)
 
 
-def handle_uploaded_file(f):
-    with open(f"uploads/{f}", "wb+") as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
+# def handle_uploaded_file(f):
+#     with open(f"uploads/{f}", "wb+") as destination:
+#         for chunk in f.chunks():
+#             destination.write(chunk)
 
 def about_site(request):
     if request.method == 'POST':
         form = AddFileUpload(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(form.cleaned_data['file'])
+            fp = FileUploadHoliday(file=form.cleaned_data['file'])
+            fp.save()
+        # if form.is_valid():
+        #     handle_uploaded_file(form.cleaned_data['file'])
     else:
         form = AddFileUpload()
     return render(request, 'main_page/about.html', {'form': form})

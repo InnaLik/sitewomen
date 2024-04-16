@@ -62,5 +62,4 @@ class Country(models.Model):
         return self.title
 
 
-class UploadFileModel(models.Model):
-    file = models.FileField(upload_to='image')
+

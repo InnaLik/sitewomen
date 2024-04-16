@@ -51,20 +51,12 @@ def see_holiday(request, slug_months, slug_day, slug_holiday):
 #             destination.write(chunk)
 
 def about_site(request):
-    if request.method == 'GET':
-        form = AddFileUpload()
-    else:
-        form = AddFileUpload(request.POST, request.FILES)
-        if form.is_valid():
-            fp = UploadFileModel(file=form.cleaned_data['file'])
-            fp.save()
-        return redirect('base')
-    return render(request, 'main_page/about.html', {'form': form})
+    pass
 
 
 def add_holiday(request):
     if request.method == 'POST':
-        form = AddFormsHoliday(request.POST, request.FILES)
+        form = AddFormsHoliday(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
             month = form.cleaned_data['month']

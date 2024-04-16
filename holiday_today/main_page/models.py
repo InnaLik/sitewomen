@@ -41,6 +41,7 @@ class Day(models.Model):
 class Holiday(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
     slug = models.SlugField(unique=True, verbose_name='Слаг')
+    photo = models.ImageField(upload_to='image', blank=True, null=True, verbose_name='Фото')
     international = models.BooleanField(default=False, verbose_name='Статус международного')
     worldwide = models.BooleanField(default=False, verbose_name='Статус всемирного')
     ordinary_holiday = models.BooleanField(default=False, verbose_name='Статус обычного')
@@ -61,5 +62,5 @@ class Country(models.Model):
         return self.title
 
 
-class FileUploadHoliday(models.Model):
-    file = models.FileField(upload_to='image', blank=True, null=True, verbose_name='Файл')
+class UploadFileModel(models.Model):
+    file = models.FileField(upload_to='image')

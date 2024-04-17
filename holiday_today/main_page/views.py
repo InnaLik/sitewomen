@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AddFormsHoliday, AddFileUpload
-from .models import Month, Day, Holiday, UploadFileModel
+from .models import Month, Day, Holiday
 
 data = [{'name': 'О сайте', 'url_name': 'about-site'},
         {'name': 'Добавить праздник', 'url_name': 'add-holiday'},

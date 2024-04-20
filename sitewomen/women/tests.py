@@ -8,6 +8,7 @@ class TestUrl(TestCase):
     def setUp(self) -> None:
         Women.objects.create(title='lion', slug='lion', cat_id=1)
         Category.objects.create(name='Животные', slug='Animal')
+
     def test_about(self):
         response = self.client.get('/about/')
         self.assertEqual(response.status_code, 200)

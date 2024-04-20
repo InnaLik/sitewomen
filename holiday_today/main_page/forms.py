@@ -24,7 +24,7 @@ class AddFormsHoliday(forms.ModelForm):
 
     class Meta:
         model = Holiday
-        fields = ['name', 'slug',  'international',  'worldwide', 'ordinary_holiday', 'description_holi']
+        fields = ['name', 'slug', 'international', 'worldwide', 'ordinary_holiday', 'description_holi', 'file']
         widgets = {'description_holi': forms.Textarea(attrs={'cols': 50, 'rows': 5})}
 
         labels = {'description_holi': 'Описание праздника'}
@@ -38,6 +38,3 @@ class AddFormsHoliday(forms.ModelForm):
 
 class AddFileUpload(forms.Form):
     file = forms.FileField(label='Файл:')
-
-
-

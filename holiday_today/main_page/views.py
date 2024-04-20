@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AddFormsHoliday, AddFileUpload
-from .models import Month, Day, Holiday
+from .models import Month, Day, Holiday, AddFileForm
 
 data = [{'name': 'О сайте', 'url_name': 'about-site'},
         {'name': 'Добавить праздник', 'url_name': 'add-holiday'},
@@ -51,23 +51,32 @@ def see_holiday(request, slug_months, slug_day, slug_holiday):
 #             destination.write(chunk)
 
 def about_site(request):
-    pass
+    if request.method == 'POST':
+        form = AddFileUpload(request.POST, request.FILES)
+        if form.is_valid():
+            form = AddFileForm(file=form.cleaned_data['file'])
+            form.save()
+            return redirect('base')
+
+    return render(request, 'main_page/about.html', {'form':  AddFileUpload()})
 
 
 def add_holiday(request):
     if request.method == 'POST':
-        form = AddFormsHoliday(request.POST)
+        form = AddFormsHoliday(request.POST, request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
             month = form.cleaned_data['month']
             day = form.cleaned_data['day']
             country = form.cleaned_data['country']
-            form.save()
+            file = form.cleaned_data['file']
             name = form.cleaned_data['name']
+            form.save()
             s = Holiday.objects.get(name=name)
             s.month.add(month)
             s.day.add(day)
             s.country.add(country)
+
             return redirect('base')
 
     else:

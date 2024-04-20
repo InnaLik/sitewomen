@@ -49,6 +49,7 @@ class Holiday(models.Model):
     month = models.ManyToManyField('Month', blank=True, related_name='months')
     day = models.ManyToManyField('Day', blank=True)
     country = models.ManyToManyField('Country', blank=True)
+    file = models.FileField(upload_to='image', blank=True)
 
     class Meta:
         verbose_name_plural = 'Праздники'
@@ -62,4 +63,5 @@ class Country(models.Model):
         return self.title
 
 
-
+class AddFileForm(models.Model):
+    file = models.FileField(upload_to='image')

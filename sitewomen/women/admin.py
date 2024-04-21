@@ -1,4 +1,6 @@
 from django.contrib import admin, messages
+from django.utils.safestring import mark_safe
+
 from .models import Women, Category
 
 admin.site.site_header = 'Панель администрирования'
@@ -26,18 +28,18 @@ class MariedFilter(admin.SimpleListFilter):
 @admin.register(Women)
 class WomenAdmin(admin.ModelAdmin):
     # поля, которые будут отображаться в форме редактирования
-    fields = ['title', 'slug', 'content', 'cat', 'husb', 'tagies']
+    fields = ['title', 'slug', 'content', 'photo', 'photo_info', 'cat', 'husb', 'tagies']
     # либо можем прописать exclude вместо fields, он исключит поля
     # exclude = ['tagies', 'is_published']
     # поля только для чтения
-    #readonly_fields = ['slug']
+    readonly_fields = ['photo_info']
     # для автоматического формирования слага
     prepopulated_fields = {'slug': ('title', )}
     # для горизонтального отображения
     # filter_horizontal = ['tagies']
     # для вертикального отображения
     filter_vertical = ['tagies']
-    list_display = ('title', 'time_create', 'is_published', 'cat', 'brief_info')
+    list_display = ('title', 'photo_info', 'time_create', 'is_published', 'cat')
     # кликабельность
     list_display_links = ('title',)
     # порядок сортировки исключительно для отображения в админ панели
@@ -53,10 +55,19 @@ class WomenAdmin(admin.ModelAdmin):
     search_fields = ['title__startswith', 'cat__name']
     # панель фильтрации
     list_filter = [MariedFilter, 'cat__name', 'is_published']
+    # панель сохранить сверху
+    save_on_top = True
 
     @admin.display(description='Краткое описание', ordering='content')
     def brief_info(self, women: Women):
         return f'Описание {len(women.content)} символов'
+
+
+    @admin.display(description='photo')
+    def photo_info(self, women: Women):
+        if women.photo:
+            return mark_safe(f"<img src='{women.photo.url}' width=50>")
+
 
     # для того чтобы действие было делать статьи опубликованными
     # queryset - это коллекция объектов

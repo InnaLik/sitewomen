@@ -1,8 +1,0 @@
-{% extends 'main_page/menu.html' %}
-{% block content %}
-<h1>{{month.name_month}}</h1>
-{%for i in day%}
-<li><a href="{{ i.get_absolute_url }}">
-        {{ i.number_day }}</a></li>
-{%endfor%}
-{% endblock %}

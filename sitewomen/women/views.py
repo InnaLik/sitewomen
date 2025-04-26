@@ -1,13 +1,10 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect, HttpResponsePermanentRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
 
-
 # после перерыва 19.12.2023 37 минут
-from women.models import Women, Category
-
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
@@ -25,12 +22,18 @@ data_db = [
     {'id': 3, 'title': 'Джулия Робертс', 'content': 'Биография Джулия Робертс', 'is_published': True},
 ]
 
+cats_db = [
+    {'id': 1, 'name': 'Актрисы'},
+    {'id': 2, 'name': 'Певицы'},
+    {'id': 3, 'name': 'Спортсменки'},
+]
+
+
 def index(request):
-    posts = Women.published.all()
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': posts,
+        'posts': data_db,
         'cat_selected': 0,
 
     }
@@ -41,14 +44,8 @@ def about(request):
     return render(request, 'women/about.html', {'title': 'О сайте', 'menu': menu})
 
 
-def show_post(request, post_slug):
-    post = get_object_or_404(Women, slug=post_slug)
-    data = {'title': post.title,
-            'menu': menu,
-            'post': post,
-            'cat_selected': 1}
-    return render(request, 'women/post.html', data)
-
+def show_post(request, post_id):
+    return HttpResponse(f"Отображение статьи с id = {post_id}")
 
 
 def addpage(request):
@@ -68,13 +65,11 @@ def page_not_found(request, exception):
 
 
 # очень сложно, надо много раз прослушать тему, чтобы понять
-def show_category(request, cat_slug):
-    category = get_object_or_404(Category, slug=cat_slug)
-    posts = Women.published.filter(cat_id=category.pk)
+def show_category(request, cat_id):
     data = {
-        'title': f'Рубрика {category.name}',
+        'title': 'Отображение по рубрикам',
         'menu': menu,
-        'posts': posts,
-        'cat_selected': category.pk,
+        'posts': data_db,
+        'cat_selected': cat_id,
     }
     return render(request, 'women/index.html', context=data)

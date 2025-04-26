@@ -1,7 +1,0 @@
-{% extends 'main_page/menu.html' %}
-{% block content %}
-<h1>{{month.name_month}}</h1>
-{%for i in day%}
-<li><a href="{% url 'see_day' month.slug i.slug %}">{{ i.number_day }}</a></li>
-{%endfor%}
-{% endblock %}

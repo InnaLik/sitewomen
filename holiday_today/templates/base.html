@@ -1,9 +1,5 @@
 {% extends 'main_page/menu.html' %}
-{% load static %}
 {% load holiday_today_tags %}
-    {%block css%}
-<link rel="stylesheet" href="{% static 'main_page/css/main.css'%}">
-    {%endblock%}
 {% block content %}
 <hr>
 {% show_month as s %}

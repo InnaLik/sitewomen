@@ -1,3 +1,5 @@
+
+
 from django.db import models
 
 # Create your models here.
@@ -11,6 +13,7 @@ class Month(models.Model):
     slug = models.SlugField(db_index=True, unique=True)
     day = models.ManyToManyField('Day', blank=True, related_name='days')
 
+
     def get_absolute_url(self):
         #  первый аргумент это именно название нашей функции во views
         return reverse('see_month', kwargs={'slug_months': self.slug})
@@ -21,47 +24,35 @@ class Month(models.Model):
     def get_name_month(self):
         return self.name_month
 
-    class Meta:
-        verbose_name_plural = 'Месяцы'
-
-
 class Day(models.Model):
     number_day = models.IntegerField(unique=True)
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField(default=True)
     month = models.ManyToManyField('Month', blank=True, related_name='month')
 
-    class Meta:
-        verbose_name_plural = 'Дни'
-
-    def __str__(self):
-        return str(self.number_day)
-
+    # 'month/<slug:slug_month>/<slug:slug_day>/'
+    def get_absolute_url(self):
+        #  первый аргумент это именно название нашей функции во views
+        return reverse('see_day', kwargs={'int_day': self.slug})
 
 class Holiday(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Наименование')
-    slug = models.SlugField(unique=True, verbose_name='Слаг')
-    photo = models.ImageField(upload_to='image', blank=True, null=True, verbose_name='Фото')
-    international = models.BooleanField(default=False, verbose_name='Статус международного')
-    worldwide = models.BooleanField(default=False, verbose_name='Статус всемирного')
-    ordinary_holiday = models.BooleanField(default=False, verbose_name='Статус обычного')
-    description_holi = models.TextField(blank=True)
-    month = models.ManyToManyField('Month', blank=True, related_name='months')
-    day = models.ManyToManyField('Day', blank=True)
-    country = models.ManyToManyField('Country', blank=True)
-    file = models.FileField(upload_to='image', blank=True)
-
-    class Meta:
-        verbose_name_plural = 'Праздники'
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    international = models.BooleanField(default=False)
+    worldwide = models.BooleanField(default=False)
+    ordinary_holiday = models.BooleanField(default=False)
+    month = models.ForeignKey(Month, on_delete=models.PROTECT)
+    day = models.ForeignKey(Day, on_delete=models.PROTECT)
 
 
-class Country(models.Model):
-    title = models.CharField(max_length=255, verbose_name='Наименование')
-    slug = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.title
 
 
-class AddFileForm(models.Model):
-    file = models.FileField(upload_to='image')
+
+
+
+    # number_month = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+# name_month = ['Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
+# "Ноябрь", "Декабрь"]
+# count_day = [29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+# url_name = ['February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+# 'November', 'December']

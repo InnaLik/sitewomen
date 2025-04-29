@@ -1,9 +1,17 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
+from django.views import View
 
 
-def index(request):
+class IndexView(View):
     """Главная страница сайта."""
-    return HttpResponse("Главная страница")
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Главная страница")
 
-def categories(request, category_slug:str):
-    return HttpResponse(f"{category_slug}")
+class CategoryView(View):
+    def get(self, request, category_slug):
+        return HttpResponse(f"{category_slug}")
+
+class PageNotFoundView(View):
+    """Для обработки страницы 404."""
+    def get(self, request, *args, **kwargs):
+        return HttpResponseNotFound("Страница не существует, не найдена или удалена :(")
